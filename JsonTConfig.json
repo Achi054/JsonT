@@ -1,0 +1,26 @@
+[{
+        "FileName": "appsettings.json",
+        "Sections": {
+            "DopLogging:EnableFileLogger": "true",
+            "DopLogging:Serilog": {
+                "Using": ["Serilog.Sinks.File"],
+                "MinimumLevel": "Debug",
+                "Properties": {
+                    "Application": "SerilogSinkClient"
+                }
+            }
+        }
+    },
+    {
+        "FileName": "appsettings.Development.json",
+        "Sections": {
+            "DopLogging:EnableFileLogger": "false",
+            "DopLogging:Serilog": {
+                "MinimumLevel": "Error",
+                "Properties": {
+                    "Application": "SerilogSinkClient"
+                }
+            }
+        }
+    }
+]
