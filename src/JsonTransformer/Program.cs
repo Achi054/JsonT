@@ -1,4 +1,4 @@
-﻿using System;
+﻿using ConfigTranformer.Read;
 
 namespace JsonTransformer
 {
@@ -6,7 +6,8 @@ namespace JsonTransformer
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var configPath = @"C:\TigerBox\POC\JsonTransformer\JsonTConfig.json";
+            var configurations = new Reader().FindAndDeserialize(configPath);
         }
     }
 }

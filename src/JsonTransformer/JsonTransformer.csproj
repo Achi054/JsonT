@@ -16,4 +16,8 @@
     <DocumentationFile></DocumentationFile>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ConfigTranformer\ConfigTranformer.csproj" />
+  </ItemGroup>
+
 </Project>

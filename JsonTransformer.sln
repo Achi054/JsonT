@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29905.134
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsonTransformer", "src\JsonTransformer\JsonTransformer.csproj", "{3F3F615E-AC73-491C-B3E0-69ECC8DE5171}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JsonTransformer", "src\JsonTransformer\JsonTransformer.csproj", "{3F3F615E-AC73-491C-B3E0-69ECC8DE5171}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{9F19E361-C624-4541-995B-A348BC4EFFC3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{B8BF948F-5F97-4889-AB83-4FFD1D511941}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsonTransformerTests", "tests\JsonTransformerTests\JsonTransformerTests.csproj", "{0F9FD7D0-58F6-409D-980D-46B1014B0A76}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JsonTransformerTests", "tests\JsonTransformerTests\JsonTransformerTests.csproj", "{0F9FD7D0-58F6-409D-980D-46B1014B0A76}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigTranformer", "src\ConfigTranformer\ConfigTranformer.csproj", "{80358680-D9DA-4287-85B5-BDA28332A3B4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,6 +27,10 @@ Global
 		{0F9FD7D0-58F6-409D-980D-46B1014B0A76}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0F9FD7D0-58F6-409D-980D-46B1014B0A76}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0F9FD7D0-58F6-409D-980D-46B1014B0A76}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80358680-D9DA-4287-85B5-BDA28332A3B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80358680-D9DA-4287-85B5-BDA28332A3B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80358680-D9DA-4287-85B5-BDA28332A3B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80358680-D9DA-4287-85B5-BDA28332A3B4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -32,6 +38,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{3F3F615E-AC73-491C-B3E0-69ECC8DE5171} = {9F19E361-C624-4541-995B-A348BC4EFFC3}
 		{0F9FD7D0-58F6-409D-980D-46B1014B0A76} = {B8BF948F-5F97-4889-AB83-4FFD1D511941}
+		{80358680-D9DA-4287-85B5-BDA28332A3B4} = {9F19E361-C624-4541-995B-A348BC4EFFC3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {82FE545D-8623-48B9-9228-95D65AEDBC41}
