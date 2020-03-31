@@ -39,3 +39,4 @@ obj
 artifacts
 /docs
 /appsettings.json.jdt
+/src/ConfigTranformer/ConfigTranformer.csproj.user

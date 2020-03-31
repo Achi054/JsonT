@@ -1,7 +1,10 @@
 [{
         "FileName": "appsettings.json",
         "Sections": {
-            "DopLogging:EnableFileLogger": "true",
+            "DopLogging:EnableFileLogger": {
+                "Name": "Sujith",
+                "Age": 30
+            },
             "DopLogging:Serilog": {
                 "Using": ["Serilog.Sinks.File"],
                 "MinimumLevel": "Debug",
@@ -14,7 +17,7 @@
     {
         "FileName": "appsettings.Development.json",
         "Sections": {
-            "DopLogging:EnableFileLogger": "false",
+            "DopLogging:EnableFileLogger": false,
             "DopLogging:Serilog": {
                 "MinimumLevel": "Error",
                 "Properties": {
