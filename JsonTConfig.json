@@ -1,6 +1,7 @@
 [{
         "FileName": "appsettings.json",
         "Sections": {
+            "DopAudit:EnableAuditing": true,
             "DopLogging:EnableFileLogger": {
                 "Name": "Sujith",
                 "Age": 30

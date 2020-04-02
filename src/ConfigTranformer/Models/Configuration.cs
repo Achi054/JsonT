@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ConfigTranformer
+namespace ConfigTranformer.Models
 {
     public class Configuration
     {

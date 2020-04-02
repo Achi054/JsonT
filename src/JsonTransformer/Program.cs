@@ -1,20 +1,23 @@
-﻿using System.Threading.Tasks;
-using ConfigTranformer.Read;
-using ConfigTranformer.Write;
+﻿using CommandLine;
+using ConfigTranformer;
 
 namespace JsonTransformer
 {
     class Program
     {
-        static async Task Main(string[] args)
+        static void Main(string[] args)
         {
-            var configPath = @"C:\TigerBox\POC\JsonTransformer\JsonTConfig.json";
-            var sourcePath = @"C:\TigerBox\POC\JsonTransformer\docs\";
-            var configurations = new Reader().FindAndDeserialize(configPath).GetAwaiter().GetResult();
-            foreach (var config in configurations)
-            {
-                await new Writer().WriteToConfig(config, sourcePath);
-            }
+            var jsonTUpdater = new ConfigurationUpdater();
+
+            var parseResult = new Parser(with => with.HelpWriter = null)
+                .ParseArguments<JsonTCommand>(args);
+
+            parseResult
+                .WithParsed(opts =>
+                {
+                    jsonTUpdater.UpdateConfiguration(opts.SourcePath, opts.ConfigFile).GetAwaiter().GetResult();
+                })
+                .WithNotParsed(errs => HelpContent.DisplayHelp(parseResult));
         }
     }
 }
