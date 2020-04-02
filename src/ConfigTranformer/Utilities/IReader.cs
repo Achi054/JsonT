@@ -7,7 +7,7 @@ namespace ConfigTranformer.Utilities.Read
 {
     public interface IReader
     {
-        Task<IAsyncEnumerable<Configuration>> ReadAndDeserializeConfig(string configPath);
+        Task<IEnumerable<Configuration>> ReadAndDeserializeConfig(string configPath);
 
         Task<JObject> ReadAndDeserializeAppConfig(string file);
     }

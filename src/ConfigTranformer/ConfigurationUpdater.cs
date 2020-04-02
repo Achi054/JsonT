@@ -17,6 +17,9 @@ namespace ConfigTranformer
         public ConfigurationUpdater(ILogger<ConfigurationUpdater> logger = default)
             => (_logger, _reader, _writer) = (logger ?? GetLogger(), new Reader(), new Writer());
 
+        public ConfigurationUpdater(ILogger<ConfigurationUpdater> logger, IReader reader, IWriter writer)
+        => (_logger, _reader, _writer) = (logger ?? GetLogger(), reader, writer);
+
         /// <summary>
         /// Update configuration files with settings in JsonT configuration file
         /// </summary>
@@ -28,9 +31,9 @@ namespace ConfigTranformer
             try
             {
                 var configurations = await _reader.ReadAndDeserializeConfig(JsonTConfig);
-                await foreach (var config in configurations)
+                foreach (var config in configurations)
                 {
-                    var appConfigurationFile = Directory.GetFiles(sourcePath, config.FileName).FirstOrDefault();
+                    var appConfigurationFile = Directory.GetFiles(sourcePath, config.FileName)?.FirstOrDefault();
                     if (appConfigurationFile == null)
                         _logger.LogInformation($"File {config.FileName} does not exists in path {sourcePath}");
                     else
@@ -38,9 +41,8 @@ namespace ConfigTranformer
                         var settings = await _reader.ReadAndDeserializeAppConfig(appConfigurationFile);
                         var updatedConfigurations = await _writer.UpdateConfigurations(config.Sections, settings);
                         await _writer.WriteConfigurationsToFile(appConfigurationFile, updatedConfigurations);
+                        _logger.LogInformation($"Updated {config.FileName} with new settings.");
                     }
-
-                    _logger.LogInformation($"Updated {config.FileName} with new settings.");
                 }
             }
             catch (Exception ex)
