@@ -22,6 +22,9 @@ namespace ConfigTranformer.Utilities.Read
         }
 
         public async Task<JObject> ReadAndDeserializeAppConfig(string file)
-            => JObject.Parse(await File.ReadAllTextAsync(file));
+        {
+            var config = await File.ReadAllTextAsync(file);
+            return string.IsNullOrWhiteSpace(config) ? null : JObject.Parse(config);
+        }
     }
 }

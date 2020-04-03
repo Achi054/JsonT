@@ -39,6 +39,7 @@ namespace ConfigTranformer.Utilities.Write
             using StreamWriter fileStream = File.CreateText(filePath);
             using JsonTextWriter writer = new JsonTextWriter(fileStream);
             await settings.WriteToAsync(writer);
+            await writer.FlushAsync();
         }
 
         private async Task ValidateAndCompose(JObject configurations, string key, object value)
@@ -48,24 +49,22 @@ namespace ConfigTranformer.Utilities.Write
             var propertyPath = pathCount < 2 ? pathArray[0] : string.Join('.', pathArray);
 
             var propertyPathValue = configurations.SelectToken(propertyPath);
-            if (propertyPathValue != null && value != null)
+            if (pathCount > 1 && propertyPathValue != null)
                 await UpdateValue(configurations, propertyPath, value, propertyPathValue);
             else
             {
-                JProperty jProperty;
                 var propertyValue = value is JProperty ? new JObject(value) : value;
+                var jProperty = new JProperty(pathArray.LastOrDefault(), propertyValue);
 
-                if (pathArray.Length > 1)
+                if (pathCount > 1)
                 {
-                    jProperty = new JProperty(pathArray.LastOrDefault(), propertyValue);
                     string newKey = string.Join(':', pathArray.Take(pathArray.Length - 1));
                     await ValidateAndCompose(configurations, newKey, jProperty);
                 }
+                else if (propertyPathValue != null)
+                    await UpdateObjectValue(configurations, propertyPath, value);
                 else
-                {
-                    jProperty = new JProperty(pathArray[0], propertyValue);
                     await UpdateAtRoot(configurations, jProperty);
-                }
             }
         }
 
