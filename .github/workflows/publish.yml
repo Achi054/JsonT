@@ -41,4 +41,4 @@ jobs:
 
       - name: Push
         working-directory: ./src/JsonT
-        run: dotnet nuget push nupkg\*.nupkg -k oy2lhqlhjije3buhf6ca7nowokp2qn3elex7mhr7q3b4wq -s https://api.nuget.org/v3/index.json
+        run: dotnet nuget push nupkg\*.nupkg -k oy2p4kltjf2riofak7kqr5ngkhzoi22uli6hnwryfxrqru -s https://api.nuget.org/v3/index.json
