@@ -31,10 +31,7 @@ jobs:
   deploy:
     name: list on nuget
     needs: build
-    strategy:
-      matrix:
-        os: [windows-latest, ubuntu-latest]
-    runs-on: ${{ matrix.os }}
+    runs-on: windows-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v1
