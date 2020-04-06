@@ -31,20 +31,20 @@ A setting file defines sections that help the JsonT to update the configuration 
 _Template_:
 
 ```
-[
-	{
-		FileName: '<file-to-update>',
-		Sections: {
-			'<configuration>': 'value',
-		},
-	},
-	{
-		FileName: '<file-to-update>',
-		Sections: {
-			'<configuration>': 'value',
-		},
-	},
-];
+{[
+    {
+        FileName: '<file-to-update>',
+        Sections: {
+            '<configuration>': 'value',
+        },
+    },
+    {
+        FileName: '<file-to-update>',
+        Sections: {
+            '<configuration>': 'value',
+        },
+    }
+]}
 ```
 
 _FileName_: Provid name of the file to update; a json file.<br/>
@@ -54,7 +54,7 @@ ex: `JsonT.json`
 _Sections_: Provide the configuration detail(s). The section is dictionary that takes `configuration` and `value`. The `configuration` can heirarchy of objects seperated by '`:`'.<br/>
 ex:
 
-```
+```javascript
 {
     "Auditing:Enable" : true,
     "Logging": {
