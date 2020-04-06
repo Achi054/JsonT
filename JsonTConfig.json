@@ -1,30 +1,13 @@
 [{
-        "FileName": "appsettings.json",
+        "FileName": "<file-to-update>",
         "Sections": {
-            "DopAudit:EnableAuditing": true,
-            "DopLogging:EnableFileLogger": {
-                "Name": "Sujith",
-                "Age": 30
-            },
-            "DopLogging:Serilog": {
-                "Using": ["Serilog.Sinks.File"],
-                "MinimumLevel": "Debug",
-                "Properties": {
-                    "Application": "SerilogSinkClient"
-                }
-            }
+            "<configuration>": "value"
         }
     },
     {
-        "FileName": "appsettings.Development.json",
+        "FileName": "<file-to-update>",
         "Sections": {
-            "DopLogging:EnableFileLogger": false,
-            "DopLogging:Serilog": {
-                "MinimumLevel": "Error",
-                "Properties": {
-                    "Application": "SerilogSinkClient"
-                }
-            }
+            "<configuration>": "value"
         }
     }
 ]
