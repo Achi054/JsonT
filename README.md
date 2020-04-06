@@ -31,7 +31,7 @@ A setting file defines sections that help the JsonT to update the configuration 
 _Template_:
 
 ```
-{[
+[
     {
         FileName: '<file-to-update>',
         Sections: {
@@ -44,7 +44,7 @@ _Template_:
             '<configuration>': 'value',
         },
     }
-]}
+]
 ```
 
 _FileName_: Provid name of the file to update; a json file.<br/>
