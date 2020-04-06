@@ -30,7 +30,7 @@ A setting file defines sections that help the JsonT to update the configuration 
 
 _Template_:
 
-```javascript
+```json
 [
 	{
 		FileName: '<file-to-update>',
