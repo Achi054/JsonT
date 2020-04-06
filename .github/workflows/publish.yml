@@ -1,0 +1,37 @@
+name: publish to nuget repository
+on:
+  push:
+    branches:
+      - master
+jobs:
+  publish:
+    name: list on nuget
+    strategy:
+      matrix:
+        os: [windows-latest, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v1
+
+      - name: Setup .NET Core @ Latest
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 3.1.101
+
+      - name: Install dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+
+      - name: Test
+        run: dotnet test --no-restore --verbosity normal
+
+      - name: Pack
+        run: |
+          cd src/JsonT
+          dotnet pack --configuration Release --no-restore
+
+      - name: Push to NuGet
+        run: dotnet nuget push nupkg\*.nupkg -k oy2lhqlhjije3buhf6ca7nowokp2qn3elex7mhr7q3b4wq -s https://api.nuget.org/v3/index.json
