@@ -20,9 +20,12 @@ namespace ConfigTranformer.Utilities.Write
         /// <returns></returns>
         public async Task<JObject> UpdateConfigurations(IDictionary<string, object> sections, JObject appSettings)
         {
-            foreach (var section in sections)
+            if (sections != null && sections.Any())
             {
-                await ValidateAndCompose(appSettings, section.Key, section.Value);
+                foreach (var section in sections)
+                {
+                    await ValidateAndCompose(appSettings, section.Key, section.Value);
+                }
             }
 
             return appSettings;
