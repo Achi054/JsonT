@@ -14,6 +14,7 @@
     <PackageIcon>Titan.png</PackageIcon>
     <RepositoryUrl>https://github.com/Achi054/JsonT</RepositoryUrl>
     <RepositoryType>GitHub</RepositoryType>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
   <ItemGroup>
