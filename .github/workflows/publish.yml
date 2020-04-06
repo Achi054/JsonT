@@ -1,20 +1,21 @@
-name: publish to nuget repository
+name: Github Actions Publish
 on:
   push:
     branches:
       - master
 jobs:
-  publish:
-    name: list on nuget
+  build:
     strategy:
       matrix:
         os: [windows-latest, ubuntu-latest]
-    runs-on: ${{ matrix.os }}
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v1
 
-      - name: Setup .NET Core @ Latest
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup .NET Core
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: 3.1.101
@@ -27,11 +28,21 @@ jobs:
 
       - name: Test
         run: dotnet test --no-restore --verbosity normal
+  deploy:
+    name: list on nuget
+    needs: build
+    strategy:
+      matrix:
+        os: [windows-latest, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v1
 
       - name: Pack
         run: |
           cd src/JsonT
           dotnet pack --configuration Release --no-restore
 
-      - name: Push to NuGet
+      - name: Push
         run: dotnet nuget push nupkg\*.nupkg -k oy2lhqlhjije3buhf6ca7nowokp2qn3elex7mhr7q3b4wq -s https://api.nuget.org/v3/index.json
