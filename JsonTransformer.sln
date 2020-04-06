@@ -11,7 +11,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{B8BF948F
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConfigTranformer", "src\ConfigTranformer\ConfigTranformer.csproj", "{80358680-D9DA-4287-85B5-BDA28332A3B4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigTransformerTests", "tests\ConfigTransformerTests\ConfigTransformerTests.csproj", "{4551C4A3-F2E6-44C6-9FF3-15C99904EAA9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConfigTransformerTests", "tests\ConfigTransformerTests\ConfigTransformerTests.csproj", "{4551C4A3-F2E6-44C6-9FF3-15C99904EAA9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsonT", "src\JsonT\JsonT.csproj", "{84B3BB2C-3560-4D0D-B170-F8DCB760E3D9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +33,10 @@ Global
 		{4551C4A3-F2E6-44C6-9FF3-15C99904EAA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4551C4A3-F2E6-44C6-9FF3-15C99904EAA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4551C4A3-F2E6-44C6-9FF3-15C99904EAA9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84B3BB2C-3560-4D0D-B170-F8DCB760E3D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84B3BB2C-3560-4D0D-B170-F8DCB760E3D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84B3BB2C-3560-4D0D-B170-F8DCB760E3D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84B3BB2C-3560-4D0D-B170-F8DCB760E3D9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -39,6 +45,7 @@ Global
 		{3F3F615E-AC73-491C-B3E0-69ECC8DE5171} = {9F19E361-C624-4541-995B-A348BC4EFFC3}
 		{80358680-D9DA-4287-85B5-BDA28332A3B4} = {9F19E361-C624-4541-995B-A348BC4EFFC3}
 		{4551C4A3-F2E6-44C6-9FF3-15C99904EAA9} = {B8BF948F-5F97-4889-AB83-4FFD1D511941}
+		{84B3BB2C-3560-4D0D-B170-F8DCB760E3D9} = {9F19E361-C624-4541-995B-A348BC4EFFC3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {82FE545D-8623-48B9-9228-95D65AEDBC41}

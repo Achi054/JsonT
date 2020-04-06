@@ -8,8 +8,10 @@
 
     <OutputType>Exe</OutputType>
 
-    <Description>Json Transformation tool to add or remove section</Description>
+    <Description>Json Transformation tool to add or remove configuration section(s)</Description>
     <Copyright>Copyright (c) 2020</Copyright>
+    <Company></Company>
+    <Authors>Sujith Acharya</Authors>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

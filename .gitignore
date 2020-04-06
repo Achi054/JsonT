@@ -37,6 +37,7 @@ obj
 
 # Artifact
 artifacts
+nupkg
 /docs
-/appsettings.json.jdt
-/src/ConfigTranformer/ConfigTranformer.csproj.user
+*.csproj.user
+
