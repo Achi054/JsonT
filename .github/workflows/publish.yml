@@ -26,7 +26,7 @@ jobs:
 
       - name: Build
         working-directory: ./src/JsonT
-        run: dotnet build --configuration Release --no-restore
+        run: dotnet build --configuration Release
   deploy:
     name: list on nuget
     needs: build
@@ -37,7 +37,7 @@ jobs:
 
       - name: Pack
         working-directory: ./src/JsonT
-        run: dotnet pack --configuration Release --no-restore
+        run: dotnet pack --configuration Release
 
       - name: Push
         working-directory: ./src/JsonT
