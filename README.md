@@ -25,9 +25,10 @@ Command Options:
 ## Getting started
 
 **_Creating JsonT file_**<br/>
-A JsonT file defines sections that help the JsonT to update the respective json file.<br/>
-The JsonT file is json file with file extension `.jt`.<br/>
-ex: If the json file to update is `configuration.json` the respective JsonT file should be `configuration.json.jt`
+A _JsonT_ file defines sections that help the _JsonT_ to update the respective json file.The _JsonT_ file is json file with file extension `.jt`.<br/>
+
+ex: <br/>
+If the json file to update is `configuration.json` the respective JsonT file should be `configuration.json.jt`
 <br/>
 
 _Configurations_ should be a dictionary that takes `path` and `value`. The `path` can be a heirarchy of objects seperated by '`:`'.<br/>
