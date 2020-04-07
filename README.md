@@ -2,7 +2,7 @@
 
 This .Net Core tool is used to update the content in respective json file. This file could be a appsetting or any json configuration file for that matter.
 
-The tool needs a settings file, a json; defining the content(s) that need to be updated in the respective file(s).
+The tool needs a settings file, `.jt`; defining the content(s) that need to be updated in the respective file(s).
 
 ## Installation
 
@@ -19,39 +19,18 @@ Options:
   help, --help                  Display help
 
 Command Options:
-  -s, --sourcepath:             Provide the source path to the config file(s)
-  -c, --config:                 Provide full path to JsonT config file
+  -s, --sourcepath:             Provide path to Json file(s)
 ```
 
 ## Getting started
 
-**_Creating settings file_**<br/>
-A setting file defines sections that help the JsonT to update the json file(s).
-
-_Template_:
-
-```
-[
-    {
-        FileName: '<file-to-update>',
-        Sections: {
-            '<configuration>': 'value',
-        },
-    },
-    {
-        FileName: '<file-to-update>',
-        Sections: {
-            '<configuration>': 'value',
-        },
-    }
-]
-```
-
-_FileName_: Provid name of the file to update; a json file.<br/>
-ex: `JsonT.json`
+**_Creating JsonT file_**<br/>
+A JsonT file defines sections that help the JsonT to update the respective json file.<br/>
+The JsonT file is json file with file extension `.jt`.<br/>
+ex: If the json file to update is `configuration.json` the respective JsonT file should be `configuration.json.jt`
 <br/>
 
-_Sections_: Provide the configuration detail(s). The section is dictionary that takes `configuration` and `value`. The `configuration` can heirarchy of objects seperated by '`:`'.<br/>
+_Configurations_ should be a dictionary that takes `path` and `value`. The `path` can be a heirarchy of objects seperated by '`:`'.<br/>
 ex:
 
 ```javascript

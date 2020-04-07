@@ -11,7 +11,7 @@ namespace ConfigTransformerTests
 {
     public class ReaderTests
     {
-        private readonly string configFile = @"/docs/JsonTConfig.json";
+        private readonly string configFile = @"docs\settings.json.jt";
         private readonly IReader _target;
 
         public ReaderTests()
@@ -23,61 +23,48 @@ namespace ConfigTransformerTests
         ~ReaderTests() => TestHelper.ClearContent(configFile);
 
         [Fact]
+        public async Task FetchJsonTFiles_WhenJtFileExists_ReturnJtFile()
+        {
+            // Act
+            var files = await _target.FetchJsonTFiles(AppDomain.CurrentDomain.BaseDirectory + "docs");
+
+            // Assert
+            files.Should().NotBeNull();
+            files.Length.Should().Be(1);
+        }
+
+        [Fact]
+        public async Task FetchJsonTFiles_WhenSourcePathDoesntExists_ThrowException()
+        {
+            // Act and Assert
+            await Assert.ThrowsAsync<DirectoryNotFoundException>(async () => await _target.FetchJsonTFiles(AppDomain.CurrentDomain.BaseDirectory + @"/docs/setting.json.jt"));
+        }
+
+        [Fact]
         public async Task ReadAndDeserializeConfig_WhenConfigIsValid_ReturnJObject()
         {
             // Arrange
             var jappsettingsObject = new JObject
             {
-                { "FileName", "appsettings.json" },
-                { "Sections", new JObject
-                    {
-                        ["Logging:Enable"] = true,
-                        ["Auditing:Enable"] = true
-                    }
-                }
+                ["Logging:Enable"] = true,
+                ["Auditing:Enable"] = true
             };
 
-            var jappconfigsObject = new JObject
-            {
-                { "FileName", "appconfigs.json" },
-                { "Sections", new JObject
-                    {
-                        ["Logging:Enable"] = false,
-                        ["Auditing:Enable"] = false
-                    }
-                }
-            };
-
-            var jtArray = new JArray
-            {
-                jappsettingsObject,
-                jappconfigsObject
-            };
-
-            TestHelper.AddContent(configFile, jtArray.ToString());
+            TestHelper.AddContent(configFile, jappsettingsObject.ToString());
 
             // Act
             var data = await _target.ReadAndDeserializeConfig(configFile);
 
             // Assert
             data.Should().NotBeNull();
-            data.Should().HaveCount(2);
 
-            data.First().FileName.Should().Be("appsettings.json");
-            data.First().Sections.Should().NotBeNull();
-            data.First().Sections.Should().HaveCount(2);
-            data.First().Sections.First().Key.Should().Be("Logging:Enable");
-            data.First().Sections.First().Value.Should().Be(true);
-            data.First().Sections.Skip(1).First().Key.Should().Be("Auditing:Enable");
-            data.First().Sections.Skip(1).First().Value.Should().Be(true);
-
-            data.Skip(1).First().FileName.Should().Be("appconfigs.json");
-            data.Skip(1).First().Sections.Should().NotBeNull();
-            data.Skip(1).First().Sections.Should().HaveCount(2);
-            data.Skip(1).First().Sections.First().Key.Should().Be("Logging:Enable");
-            data.Skip(1).First().Sections.First().Value.Should().Be(false);
-            data.Skip(1).First().Sections.Skip(1).First().Key.Should().Be("Auditing:Enable");
-            data.Skip(1).First().Sections.Skip(1).First().Value.Should().Be(false);
+            data.FileName.Should().Be("settings.json");
+            data.Sections.Should().NotBeNull();
+            data.Sections.Should().HaveCount(2);
+            data.Sections.First().Key.Should().Be("Logging:Enable");
+            data.Sections.First().Value.Should().Be(true);
+            data.Sections.Skip(1).First().Key.Should().Be("Auditing:Enable");
+            data.Sections.Skip(1).First().Value.Should().Be(true);
         }
 
         [Fact]
@@ -98,11 +85,8 @@ namespace ConfigTransformerTests
             // Arrange
             TestHelper.AddContent(configFile, configData);
 
-            // Act
-            var data = await _target.ReadAndDeserializeConfig(configFile);
-
-            // Assert
-            data.Should().BeNull();
+            // Act and Assert
+            await Assert.ThrowsAsync<InvalidDataException>(async () => await _target.ReadAndDeserializeConfig(configFile));
         }
 
         [Fact]
@@ -111,13 +95,8 @@ namespace ConfigTransformerTests
             // Arrange
             var jappsettingsObject = new JObject
             {
-                { "FileName", "appsettings.json" },
-                { "Sections", new JObject
-                    {
-                        ["Logging:Enable"] = true,
-                        ["Auditing:Enable"] = true
-                    }
-                }
+                ["Logging:Enable"] = true,
+                ["Auditing:Enable"] = true
             };
 
             TestHelper.AddContent(configFile, jappsettingsObject.ToString());

@@ -40,7 +40,10 @@ namespace ConfigTranformer.Utilities.Write
         public async Task WriteConfigurationsToFile(string filePath, JObject settings)
         {
             using StreamWriter fileStream = File.CreateText(filePath);
-            using JsonTextWriter writer = new JsonTextWriter(fileStream);
+            using JsonTextWriter writer = new JsonTextWriter(fileStream)
+            {
+                Formatting = Formatting.Indented
+            };
             await settings.WriteToAsync(writer);
             await writer.FlushAsync();
         }

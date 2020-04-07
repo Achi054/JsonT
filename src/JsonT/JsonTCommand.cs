@@ -10,11 +10,10 @@ namespace JsonT
         public static IEnumerable<Example> Examples
         {
             get => new[] {
-                    new Example("Update application configuration files",
+                    new Example("Update Json file(s)",
                         new Options
                         {
-                            SourcePath = "<source-directory>",
-                            ConfigFile = "<config-file>"
+                            SourcePath = "<source-directory>"
                         })
                   };
         }
@@ -22,10 +21,7 @@ namespace JsonT
 
     internal class Options
     {
-        [Option('s', "sourcepath", Required = true, HelpText = "Provide the source path to the config file(s)")]
+        [Option('s', "sourcepath", Required = true, HelpText = "Provide path to Json file(s)")]
         public string SourcePath { get; set; }
-
-        [Option('c', "configfile", Required = true, HelpText = "Provide full path to JsonT config file")]
-        public string ConfigFile { get; set; }
     }
 }

@@ -26,14 +26,16 @@ namespace ConfigTranformer
         /// <param name="sourcePath"></param>
         /// <param name="JsonTConfig"></param>
         /// <returns></returns>
-        public async Task UpdateConfiguration(string sourcePath, string JsonTConfig)
+        public async Task UpdateConfiguration(string sourcePath)
         {
             try
             {
-                var configurations = await _reader.ReadAndDeserializeConfig(JsonTConfig);
-                foreach (var config in configurations)
+                var jtFiles = await _reader.FetchJsonTFiles(sourcePath);
+
+                foreach (var jtFile in jtFiles)
                 {
-                    var appConfigurationFile = Directory.GetFiles(sourcePath, config.FileName)?.FirstOrDefault();
+                    var config = await _reader.ReadAndDeserializeConfig(jtFile);
+                    var appConfigurationFile = Directory.GetFiles(sourcePath, config.FileName, SearchOption.AllDirectories)?.FirstOrDefault();
                     if (appConfigurationFile == null)
                         _logger.LogInformation($"File {config.FileName} does not exists in path {sourcePath}");
                     else
@@ -58,7 +60,7 @@ namespace ConfigTranformer
                 builder
                     .AddFilter("Microsoft", LogLevel.Warning)
                     .AddFilter("System", LogLevel.Warning)
-                    .AddFilter("ConfigTranformer.ConfigurationUpdater", LogLevel.Information)
+                    .AddFilter("ConfigTranformer.ConfigurationUpdater", LogLevel.Trace)
                     .AddConsole();
             });
 

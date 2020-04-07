@@ -4,7 +4,13 @@ namespace ConfigTranformer.Models
 {
     public class Configuration
     {
-        public string FileName { get; set; }
-        public IDictionary<string, object> Sections { get; set; }
+        private string fileName { get; set; }
+        private IDictionary<string, object> sections { get; set; }
+
+        public Configuration(string jsonFileName, IDictionary<string, object> content)
+            => (fileName, sections) = (jsonFileName, content);
+
+        public string FileName => fileName;
+        public IDictionary<string, object> Sections => sections;
     }
 }

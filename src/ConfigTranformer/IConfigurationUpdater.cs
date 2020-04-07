@@ -4,6 +4,6 @@ namespace ConfigTranformer
 {
     public interface IConfigurationUpdater
     {
-        Task UpdateConfiguration(string sourcePath, string JsonTConfig);
+        Task UpdateConfiguration(string sourcePath);
     }
 }

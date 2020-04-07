@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="docs\JsonTConfig.json">
+    <None Update="docs\settings.json.jt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="docs\settings.json">

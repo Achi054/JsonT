@@ -16,8 +16,7 @@ namespace JsonT
             "  help, --help                  Display help",
             Environment.NewLine,
             "Command Options:",
-            "  -s, --sourcepath:             Provide the source path to the config file(s)",
-            "  -c, --config:                 Provide full path to JsonT config file"
+            "  -s, --sourcepath:             Provide path to Json file(s)"
         }.ToList();
 
         public static void DisplayHelp<T>(ParserResult<T> result)

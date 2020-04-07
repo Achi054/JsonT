@@ -15,7 +15,7 @@ namespace JsonT
             parseResult
                 .WithParsed(opts =>
                 {
-                    jsonTUpdater.UpdateConfiguration(opts.SourcePath, opts.ConfigFile).GetAwaiter().GetResult();
+                    jsonTUpdater.UpdateConfiguration(opts.SourcePath).GetAwaiter().GetResult();
                 })
                 .WithNotParsed(errs => HelpContent.DisplayHelp(parseResult));
         }

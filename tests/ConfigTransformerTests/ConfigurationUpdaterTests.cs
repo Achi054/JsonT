@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 using ConfigTranformer;
 using ConfigTranformer.Models;
@@ -14,8 +15,7 @@ namespace ConfigTransformerTests
 {
     public class ConfigurationUpdaterTests
     {
-        private readonly string sourcePath = @"/docs";
-        private readonly string configFile = @"/docs/JsonTConfig";
+        private readonly string sourcePath = @"docs";
         private readonly Mock<IReader> _readerMoq;
         private readonly Mock<IWriter> _writerMoq;
         private readonly Mock<ILogger<ConfigurationUpdater>> _loggerMoq;
@@ -24,7 +24,6 @@ namespace ConfigTransformerTests
         public ConfigurationUpdaterTests()
         {
             sourcePath = AppDomain.CurrentDomain.BaseDirectory + sourcePath;
-            configFile = AppDomain.CurrentDomain.BaseDirectory + configFile;
             _readerMoq = new Mock<IReader>();
             _writerMoq = new Mock<IWriter>();
             _loggerMoq = new Mock<ILogger<ConfigurationUpdater>>();
@@ -35,17 +34,13 @@ namespace ConfigTransformerTests
         public async Task UpdateConfiguration_WithValidInputs_UpdatesAppConfig()
         {
             // Arrage
-            var configurations = new List<Configuration>
-            {
-                new Configuration
+            _readerMoq.Setup(x => x.FetchJsonTFiles(It.IsAny<string>())).Returns(Task.FromResult(new[] { $@"{sourcePath}/settings.json" }));
+            var configurations = new Configuration(
+                "settings.json",
+                new Dictionary<string, object>
                 {
-                    FileName = "settings.json",
-                    Sections = new Dictionary<string, object>
-                    {
-                        ["dop"] = true,
-                    }
-                }
-            } as IEnumerable<Configuration>;
+                    ["dop"] = true,
+                });
 
             _readerMoq.Setup(x => x.ReadAndDeserializeConfig(It.IsAny<string>())).Returns(Task.FromResult(configurations));
 
@@ -58,7 +53,7 @@ namespace ConfigTransformerTests
             _writerMoq.Setup(x => x.WriteConfigurationsToFile(It.IsAny<string>(), It.IsAny<JObject>())).Returns(Task.CompletedTask);
 
             // Act
-            await _target.UpdateConfiguration(sourcePath, configFile);
+            await _target.UpdateConfiguration(sourcePath);
 
             // Assert
 
@@ -75,10 +70,11 @@ namespace ConfigTransformerTests
         public async Task UpdateConfiguration_WithValidSourcePathInvalidJsonTConfig_PerformsNothing()
         {
             // Arrange
+            _readerMoq.Setup(x => x.FetchJsonTFiles(It.IsAny<string>())).Returns(Task.FromResult(new[] { $@"{sourcePath}/settings.json" }));
             _readerMoq.Setup(x => x.ReadAndDeserializeConfig(It.IsAny<string>()));
 
             // Act
-            await _target.UpdateConfiguration(sourcePath, configFile);
+            await _target.UpdateConfiguration(sourcePath);
 
             // Assert
             _loggerMoq.Verify(x => x.Log(LogLevel.Information,
@@ -92,22 +88,18 @@ namespace ConfigTransformerTests
         public async Task UpdateConfiguration_WithMissingAppConfigFile_LogMessage()
         {
             // Arrage
-            var configurations = new List<Configuration>
-            {
-                new Configuration
+            _readerMoq.Setup(x => x.FetchJsonTFiles(It.IsAny<string>())).Returns(Task.FromResult(new[] { $@"{sourcePath}/settings.json" }));
+            var configurations = new Configuration(
+                "appsettings.json",
+                new Dictionary<string, object>
                 {
-                    FileName = "appsettings.json",
-                    Sections = new Dictionary<string, object>
-                    {
-                        ["dop"] = true,
-                    }
-                }
-            } as IEnumerable<Configuration>;
+                    ["dop"] = true,
+                });
 
             _readerMoq.Setup(x => x.ReadAndDeserializeConfig(It.IsAny<string>())).Returns(Task.FromResult(configurations));
 
             // Act
-            await _target.UpdateConfiguration(sourcePath, configFile);
+            await _target.UpdateConfiguration(sourcePath);
 
             // Assert
             _loggerMoq.Verify(x => x.Log(LogLevel.Information,
@@ -123,24 +115,20 @@ namespace ConfigTransformerTests
         public async Task UpdateConfiguration_WithValidInputs_LogError()
         {
             // Arrage
-            var configurations = new List<Configuration>
-            {
-                new Configuration
+            _readerMoq.Setup(x => x.FetchJsonTFiles(It.IsAny<string>())).Returns(Task.FromResult(new[] { $@"{sourcePath}/settings.json" }));
+            var configurations = new Configuration(
+                "settings.json",
+                new Dictionary<string, object>
                 {
-                    FileName = "settings.json",
-                    Sections = new Dictionary<string, object>
-                    {
-                        ["dop"] = true,
-                    }
-                }
-            } as IEnumerable<Configuration>;
+                    ["dop"] = true,
+                });
 
             _readerMoq.Setup(x => x.ReadAndDeserializeConfig(It.IsAny<string>())).Returns(Task.FromResult(configurations));
 
             _readerMoq.Setup(x => x.ReadAndDeserializeAppConfig(It.IsAny<string>())).ThrowsAsync(new ArgumentException());
 
             // Act
-            await _target.UpdateConfiguration(sourcePath, configFile);
+            await _target.UpdateConfiguration(sourcePath);
 
             // Assert
             _loggerMoq.Verify(x => x.Log(LogLevel.Error,
@@ -148,6 +136,35 @@ namespace ConfigTransformerTests
                 It.Is<It.IsAnyType>((v, t) => true),
                 It.IsAny<Exception>(),
                 It.Is<Func<It.IsAnyType, Exception, string>>((v, t) => true)), Times.Once);
+            _writerMoq.Verify(x => x.UpdateConfigurations(It.IsAny<IDictionary<string, object>>(), It.IsAny<JObject>()), Times.Never);
+        }
+
+        [Fact]
+        public async Task UpdateConfiguration_WhenNoJtFilesExists_LogError()
+        {
+            // Arrage
+            _readerMoq.Setup(x => x.FetchJsonTFiles(It.IsAny<string>())).Throws<FileNotFoundException>();
+            var configurations = new Configuration(
+                "settings.json",
+                new Dictionary<string, object>
+                {
+                    ["dop"] = true,
+                });
+
+            _readerMoq.Setup(x => x.ReadAndDeserializeConfig(It.IsAny<string>())).Returns(Task.FromResult(configurations));
+
+            _readerMoq.Setup(x => x.ReadAndDeserializeAppConfig(It.IsAny<string>())).ThrowsAsync(new ArgumentException());
+
+            // Act
+            await _target.UpdateConfiguration(sourcePath);
+
+            // Assert
+            _loggerMoq.Verify(x => x.Log(LogLevel.Error,
+                It.IsAny<EventId>(),
+                It.Is<It.IsAnyType>((v, t) => true),
+                It.IsAny<Exception>(),
+                It.Is<Func<It.IsAnyType, Exception, string>>((v, t) => true)), Times.Once);
+            _readerMoq.Verify(x => x.ReadAndDeserializeConfig(It.IsAny<string>()), Times.Never);
             _writerMoq.Verify(x => x.UpdateConfigurations(It.IsAny<IDictionary<string, object>>(), It.IsAny<JObject>()), Times.Never);
         }
     }

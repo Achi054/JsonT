@@ -10,7 +10,7 @@ namespace ConfigTransformerTests
 {
     public class WriterTests
     {
-        private readonly string configFile = @"/docs/settings.json";
+        private readonly string configFile = @"docs\settings.json";
         private readonly IWriter _target;
 
         public WriterTests()
