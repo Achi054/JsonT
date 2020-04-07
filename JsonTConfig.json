@@ -1,13 +1,12 @@
 [{
-        "FileName": "<file-to-update>",
-        "Sections": {
-            "<configuration>": "value"
-        }
-    },
-    {
-        "FileName": "<file-to-update>",
-        "Sections": {
-            "<configuration>": "value"
+    "FileName": "appsettings.json",
+    "Sections": {
+        "Logging:Enable": false,
+        "Metrics:Format": {
+            "Type": "Json",
+            "Ext": {
+                "docs": true
+            }
         }
     }
-]
+}]

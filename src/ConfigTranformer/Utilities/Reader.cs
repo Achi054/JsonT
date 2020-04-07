@@ -9,22 +9,22 @@ namespace ConfigTranformer.Utilities.Read
 {
     public class Reader : IReader
     {
-        public async Task<IEnumerable<Configuration>> ReadAndDeserializeConfig(string configPath)
+        public Task<IEnumerable<Configuration>> ReadAndDeserializeConfig(string configPath)
         {
-            string jsonConfigurationString = await File.ReadAllTextAsync(configPath);
+            string jsonConfigurationString = File.ReadAllText(configPath);
 
-            return JsonConvert.DeserializeObject<IEnumerable<Configuration>>(
+            return Task.FromResult(JsonConvert.DeserializeObject<IEnumerable<Configuration>>(
                 jsonConfigurationString,
                 new JsonSerializerSettings
                 {
                     Formatting = Formatting.Indented
-                });
+                }));
         }
 
-        public async Task<JObject> ReadAndDeserializeAppConfig(string file)
+        public Task<JObject> ReadAndDeserializeAppConfig(string file)
         {
-            var config = await File.ReadAllTextAsync(file);
-            return string.IsNullOrWhiteSpace(config) ? null : JObject.Parse(config);
+            var config = File.ReadAllText(file);
+            return Task.FromResult(string.IsNullOrWhiteSpace(config) ? null : JObject.Parse(config));
         }
     }
 }

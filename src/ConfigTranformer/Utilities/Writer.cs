@@ -49,7 +49,7 @@ namespace ConfigTranformer.Utilities.Write
         {
             var pathArray = key.Split(':');
             var pathCount = pathArray.Length;
-            var propertyPath = pathCount < 2 ? pathArray[0] : string.Join('.', pathArray);
+            var propertyPath = pathCount < 2 ? pathArray[0] : string.Join(".", pathArray);
 
             var propertyPathValue = configurations.SelectToken(propertyPath);
             if (pathCount > 1 && propertyPathValue != null)
@@ -61,7 +61,7 @@ namespace ConfigTranformer.Utilities.Write
 
                 if (pathCount > 1)
                 {
-                    string newKey = string.Join(':', pathArray.Take(pathArray.Length - 1));
+                    string newKey = string.Join(":", pathArray.Take(pathArray.Length - 1));
                     await ValidateAndCompose(configurations, newKey, jProperty);
                 }
                 else if (propertyPathValue != null)

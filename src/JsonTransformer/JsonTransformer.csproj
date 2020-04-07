@@ -1,16 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net472</TargetFramework>
     <AssemblyName>JsonT</AssemblyName>
-    <LangVersion>8.0</LangVersion>
-    <Nullable>disable</Nullable>
 
     <OutputType>Exe</OutputType>
 
     <Description>Transformation tool to update Json content</Description>
     <Copyright>Copyright (c) 2020</Copyright>
-    <Company></Company>
     <Authors>Sujith Acharya</Authors>
   </PropertyGroup>
 
