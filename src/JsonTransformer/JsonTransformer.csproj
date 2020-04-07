@@ -8,7 +8,7 @@
 
     <OutputType>Exe</OutputType>
 
-    <Description>Json Transformation tool to add or remove configuration section(s)</Description>
+    <Description>Transformation tool to update Json content</Description>
     <Copyright>Copyright (c) 2020</Copyright>
     <Company></Company>
     <Authors>Sujith Acharya</Authors>

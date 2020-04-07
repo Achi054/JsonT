@@ -8,13 +8,14 @@
     <ToolCommandName>JsonT</ToolCommandName>
     <PackageOutputPath>./nupkg</PackageOutputPath>
 
-    <Description>Json Transformation tool to add or remove configurating section(s)</Description>
+    <Description>Transformation tool to update Json content</Description>
     <Copyright>Copyright (c) 2020</Copyright>
     <Authors>Sujith Acharya</Authors>
     <PackageIcon>Titan.png</PackageIcon>
     <RepositoryUrl>https://github.com/Achi054/JsonT</RepositoryUrl>
     <RepositoryType>GitHub</RepositoryType>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>

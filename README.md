@@ -1,8 +1,8 @@
 # Json Transformer aka JsonT
 
-This .Net Core tool is used to add or remove the section(s) in respective json file. This file could be a appsetting or any json configuration file for that matter.
+This .Net Core tool is used to update the content in respective json file. This file could be a appsetting or any json configuration file for that matter.
 
-The tool needs a settings file, a json; defining the section(s) that need to be updated in the respective configuration file(s).
+The tool needs a settings file, a json; defining the content(s) that need to be updated in the respective file(s).
 
 ## Installation
 
@@ -26,7 +26,7 @@ Command Options:
 ## Getting started
 
 **_Creating settings file_**<br/>
-A setting file defines sections that help the JsonT to update the configuration file(s).
+A setting file defines sections that help the JsonT to update the json file(s).
 
 _Template_:
 
