@@ -15,7 +15,7 @@
     <RepositoryUrl>https://github.com/Achi054/JsonT</RepositoryUrl>
     <RepositoryType>GitHub</RepositoryType>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <Version>1.1.0</Version>
+    <Version>1.1.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
